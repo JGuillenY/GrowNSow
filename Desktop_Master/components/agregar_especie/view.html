@@ -1,0 +1,84 @@
+<content class="ae_view">
+	<button class="back_herbario" ui-sref="herbario"><img src="img/return.png"></img></button>
+	<h1>Agregar Especie</h1>
+	<div class="loader">
+		<h3>Usar Url</h3>
+		<input type="text" ng-model="url"></input>
+		<button ng-click="load_url()">Extraer</button>
+	</div>
+	<div>
+		<form>
+			<div class="form-section especie">
+				<label>Especie:</label>
+				<input list="especies" type="text" ng-model="especie"></input>
+				<datalist id="browsers">
+ 		 			<option ng-repeat="esp in metadatos.especie" ng-value="{{esp}}"></option>
+ 		 		</datalist>
+			</div>
+			<div class="form-section genero">
+				<label>Genero:</label>
+				<input type="text" ng-model="genero"></input>
+			</div>
+			<div class="form-section familia">
+				<label>Familia:</label>
+				<input type="text" ng-model="familia"></input>
+			</div>
+			<div class="form-section orden">
+				<label>Orden:</label>
+				<input type="text" ng-model="orden"></input>
+			</div>
+			<div class="form-section clase">
+				<label>Clase:</label>
+				<input type="text" ng-model="clase"></input>
+			</div>
+			<div class="form-section division">
+				<label>Division:</label>
+				<input type="text" ng-model="division"></input>
+			</div>
+			<div class="form-section origen">
+				<label>Origen:</label>
+				<input type="text" ng-model="origen"></input>
+			</div>
+			<div class="form-section nombre_comun">
+				<label>Nombre Común:</label>
+				<input type="text" ng-model="nombre_comun"></input>
+			</div>
+			<div class="form-section propiedades">
+				<label>Propiedades:</label>
+				<select ng-model="active_property">
+					<option value="medicinales">Medicinales</option>
+					<option value="nutrimentales"> Nutrimentales</option>
+					<option value="restricciones">Restricciones</option>
+				</select>
+				<ol>
+					<li ng-repeat="n in rango()"><input type="text" class="prop" ng-model="properties[active_property][n+1].property"></input><input class="prior" type="numbers" ng-model="properties[active_property][n+1].priority"></input></li>
+				</ol>
+				<button ng-click="agregar_propiedad()">Agregar</button>
+			</div>
+			<div class="form-section comentario">
+				<label>Comentario:</label>
+				<textarea ng-model="comentario"></textarea>
+			</div>
+			<div class="form-section tipo">
+				<label>Tipo:</label><br>
+				<button class="t" ng-class="{'selected': tipo == 'sol'}" ng-click="tipo='sol'"><img src="img/sol.png"></img><span style="left: -1px;">Sol</span></button>
+				<button class="t" ng-class="{'selected': tipo == 'na'}" ng-click="tipo='na'"><img src="img/na.png"></img><span>Neutral</span></button>
+				<button class="t" ng-class="{'selected': tipo == 'sombra'}" ng-click="tipo='sombra'"><img src="img/sombra.png"></img><span>Sombra</span></button> 
+			</div>
+			<div style="position: relative;top: -2.5vh;" class="form-section clima">
+				<label>Clima:</label>
+				<select ng-model="clima">
+					<option value="na">Neutral</option>
+					<option value="desertico">Desértico</option>
+					<option value="seco">Seco</option>
+					<option value="calido">Cálido</option>
+					<option value="tropical">Tropical</option>
+					<option value="humedo">Humedo</option>
+					<option value="frio">Frío</option>
+					<option value="tundra">Tundra</option>
+				</select>
+			</div>
+			<button ng-click="submit()">Agregar Especie</button>
+		</form>
+	</div>
+</content>

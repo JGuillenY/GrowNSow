@@ -1,0 +1,1366 @@
+
+
+/* Empty. Add your own CSS if you like */
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Crimson Text', serif;
+	/*font-family: 'Nunito', sans-serif;*/
+}
+
+/*---------------------------------------------GENERAL CONFIGURATIONS--------------------------------------------------------------*/
+
+/* SCROLLBAR CONFIG */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0,0,0,0.4); 
+}
+
+button, li{
+	cursor: pointer;
+}
+
+button{
+	border: none;
+	margin: 10px;
+	padding: 5px;
+	background: gray;
+	transition: all .3s ease-in-out;
+}
+
+button:hover{
+	background: lightgray;
+}
+
+button:active{
+	background: white;
+	color: darkgray;
+}
+
+input, select, textarea{
+	width: 100%;
+	border-radius: 0;
+	border: none;
+	border-bottom: 1px gray solid;
+	padding: 5px 1px 1px 1px;
+	background: rgba(0,0,0, 0);
+	color: black;
+	transition:all .2s ease-in-out;
+}
+
+button.agregar-btn{
+	margin-top: 3.5vh;
+}
+
+section.info-section.comentario textarea{
+	height: 138px;
+	overflow-y: scroll;
+}
+
+section.info-section.comentario span{
+	position: relative;
+	left: 30%;
+	font-size: 1.2em;
+	opacity: .5;
+	cursor: pointer;
+	transition: opacity .3s ease-in-out;
+}
+
+section.info-section.comentario span:hover{
+	opacity: .9;
+}
+
+section.info-section.propiedad span{
+	position: relative;
+	right: 30%;
+	font-size: 1.2em;
+	opacity: .5;
+	cursor: pointer;
+	transition: opacity .3s ease-in-out;
+}
+
+section.info-section.propiedad span:hover{
+	opacity: .9;
+}
+
+textarea{
+	height: 60px;
+	overflow-y: scroll;
+}
+
+input:focus, textarea:focus{
+	background: rgba(0,0,0, 0.1);
+	border-bottom: 1px lightgray solid;
+}
+
+div.loading{
+	height: 100vh;
+	text-align: center;
+}
+
+div.loading img{
+	margin-top: calc(50vh - 100px);
+}
+
+@keyframes blinking{
+	0%{opacity: 0.2}
+	50%{opacity: 1}
+	100%{opacity: 0.2}
+}
+
+div.loading a{
+	color: gray;
+	animation-name: blinking;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+div.alert{
+	position: fixed;
+	top: 42.5%;
+	left: 35%;
+	width: 30%;
+	height: 15%;
+	padding-top: 20px;
+	background: white;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	z-index: 6;
+	text-align: center;
+}
+
+div.alert span{
+	color: darkgray;
+}
+
+div.alert button{
+	margin-top: 10px;
+}
+
+div.loaded nav.top-menu{
+	position: fixed;
+	top: -10vh;
+	left: 0;
+	width: 100vw;
+	text-align: center;
+	background: rgba(200,200,200,1) url("../img/leaf_pattern2.jpg");
+	filter:brightness(120%);
+	z-index: 9;
+	transition: top .5s ease-in-out;
+	border-bottom: 2px rgba(0,0,0,0.7) solid;
+}
+
+div.loaded nav.top-menu.opened{
+	top:0;
+}
+
+div.loaded nav.top-menu h1{
+	font-family: 'Sorts Mill Goudy', serif;
+	position: absolute;
+	font-size: 2.3em;
+	color: white;
+	text-shadow: -2px 0 black, 0 2px black, 1px 0 black, 0 -1px black;
+	opacity: .7;
+	margin-top: -8px;
+}
+
+div.loaded nav.top-menu h1.grow{
+	right: 15.5%;
+}
+
+div.loaded nav.top-menu h1.and{
+	right: 13%;
+  top: 14.5vh;
+  font-size: 1.5em;
+}
+
+div.loaded nav.top-menu h1.sow{
+	right: 6.7%;	
+}
+
+div.loaded nav.top-menu ul.main-menu{
+	text-align: center;
+	background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+	margin-bottom: 2vh;
+}
+
+div.loaded nav.top-menu ul.main-menu li{
+	display: inline-block;
+	vertical-align: middle;
+	width: 18%;
+	height: 8vh;
+	margin: 0 7px 16px 7px;
+	padding-top: 2vh;
+	filter: grayscale(100%);
+	box-sizing: border-box;
+	transition: all .3s ease-in-out;
+}
+
+div.loaded nav.top-menu ul.main-menu li a{
+	font-family: 'Sorts Mill Goudy', serif;
+}
+
+div.loaded nav.top-menu ul.main-menu li:hover, div.loaded nav.top-menu ul.main-menu li.selected{
+	background: black;
+	color: white;
+}
+
+div.loaded nav.top-menu ul.main-menu li:active{
+	background: black;
+	color: white;
+}
+
+div.loaded nav.top-menu ul.main-menu li a{
+	font-size: 20px;
+}
+
+div.loaded nav.top-menu button.open-menu{
+	background: rgba(255,255,255,.6);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: background .3s ease-in-out;
+  position: relative;
+  top: 5vh;
+  margin-top: -3vh;
+  box-sizing: border-box;
+}
+
+div.loaded nav.top-menu button.open-menu img{
+	width: 100%;
+	opacity: .8;
+	transform: scale(.5);
+	transition: all .2s ease-in-out;
+}
+
+div.loaded nav.top-menu button.open-menu img.open{
+	transform: scale(.6);
+	transition: all .2s ease-in-out;
+}
+
+div.loaded nav.top-menu button.open-menu span{
+	width: 20px;
+	height: 2px;
+	background: black;
+	position: relative;
+	left: 6px;
+	display: block;
+	margin: 5px 0;
+}
+
+div.loaded nav.top-menu button.open-menu:hover{
+	background: lightgray;
+}
+
+div.black-screen.active{
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+	background: black;
+	opacity: .5;
+	transition: all .5s ease-in-out;
+}
+
+div.black-screen{
+	opacity: 0;
+	transition: all .5s ease-in-out;
+}
+
+div.main-content{
+	padding-top: 11vh;
+}
+
+button.back_herbario{
+	position: absolute;
+	background: none;
+	opacity: .7;
+	width: 46px;
+	height: 46px;
+	left: 0;
+	cursor: pointer;
+	transition: opacity .3s solid;
+}
+
+button.back_herbario:hover{
+	opacity: 1;
+}
+
+button.back_herbario img{
+	width: 100%;
+}
+
+/*---------------------------------------------------------- HERBARIO ------------------------------------------------------------ */
+
+content#herbario{
+
+}
+
+img#output{
+	position: relative;
+  min-height: 100%;
+  width: 100%;
+}
+
+content#herbario div{
+	width: 100%;
+	height: 90.5vh;
+	padding-top: 5vh;
+	box-sizing: border-box;
+	text-align: center;
+	overflow: hidden;
+	position: absolute;
+	top: 9.5vh;
+}
+
+content#herbario div div.list, content#herbario div div.image, content#herbario div div.info{
+	display: inline-block;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	padding-top: 0;
+}
+
+div.info.neutral{
+	background: linear-gradient(to top, rgba(180,180,180,.9) 0%,rgba(200,200,200,0) 60%);
+}
+
+div.info.desertico{
+	background: linear-gradient(to top, rgba(253,255,178,.9) 0%,rgba(254,252,234,0) 60%);
+}
+
+div.info.seco{
+	background: linear-gradient(to top, rgba(255,229,178,.9) 0%,rgba(254,252,234,0) 60%);
+}
+
+div.info.calido{
+	background: linear-gradient(to top, rgba(249,197,174,.9) 0%, rgba(254,252,234,0) 60%);
+}
+
+div.info.tropical{
+	background: linear-gradient(to top, rgba(255,168,30,.9) 0%,rgba(254,252,234,0) 60%);
+}
+
+div.info.humedo{
+	background: linear-gradient(to top, rgba(154,255,145,.9) 0%,rgba(254,252,234,0) 60%);
+}
+
+div.info.frio{
+	background: linear-gradient(to top, rgba(145,255,203,.9) 0%,rgba(254,252,234,0) 60%);
+}
+
+div.info.tundra{
+	background: linear-gradient(to top, rgba(186,255,253,.9) 0%,rgba(254,252,234,0) 60%);
+}
+
+img.type-img{
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	left: 3vh;
+	top: 3vh;
+	opacity: .8;
+	transition: all .3s ease-in-out;
+}
+
+img.type-img:hover{
+	opacity: 1;
+	transform: scale(1.2);
+}
+
+button.new_specie{
+	position: absolute;
+	background: none;
+	opacity: .7;
+	width: 50px;
+	height: 50px;
+	right: 0;
+	transition: opacity .3s solid;
+}
+
+button.new_specie:hover{
+	opacity: 1;
+}
+
+button.new_specie img{
+	width: 100%;
+}
+
+button.t{
+	width: 30px;
+	height: 30px;
+	position: relative;
+	background: none;
+	margin: 0 3vw;
+	opacity: .5;
+	top: 10px;
+}	
+
+button.t:hover{
+	opacity: .8;
+	transform: scale(1.2);
+}
+
+button.t.selected{
+	opacity: .9;
+	transform: scale(1.1);
+}
+
+button.t span{
+	position: relative;
+	color: black;
+	font-size: .8em;
+	top: -13px;
+	left: -15px;
+}
+
+button.t img{
+	width: 40px;
+	height: 40px;
+	margin-left: -11px;
+	margin-top: -21px;
+}
+
+content#herbario div div.list{
+	width: 55%;
+	height: 91vh;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	margin-left: -150vw;
+	position: relative;
+	top: -5vh;
+	transition: margin-left .3s ease-in-out;
+}
+
+content#herbario div div.list.open{
+	margin-left: -40vw;
+	transition: margin-left .3s ease-in-out;
+}
+
+content#herbario div div.list div.labell{
+	width: 100%;
+	border-bottom: 1px gray solid;
+	height: 25px;
+	padding-top: 0;
+	background: gray;
+	color:white;
+}
+
+content#herbario div div.list span{
+  width: 28px;
+  height: 28px;
+  position: relative;
+  left: calc(-50% + 14px);
+}
+
+content#herbario div div.list span.filtro img{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  opacity: 0.5;
+  /* top: 3vh; */
+  left: 25.5vw;
+}
+
+content#herbario div div.list span.lupa img{
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  opacity: 0.5;
+  top: -2vh;
+  left: 26vw;
+}
+
+content#herbario div div.list ul li{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  height: 40px;
+  text-align: left;
+  list-style: none;
+  border-bottom: 1px lightgray solid;
+  padding: 5px 10px;
+}
+
+content#herbario div div.list ul li a.maint{
+	font-size: 1.1em;
+}
+
+content#herbario div div.list ul li a.submaint{
+	font-size: .85em;
+	color:gray;
+}
+
+content#herbario div div.list ul li.selected, content#herbario div div.list ul li:hover{
+	background: rgba(0,0,0,0.1);
+}
+
+content#herbario div div.list input, content#herbario div div.list select{
+	padding-left: 50px;
+	height: 45px;
+	font-size: 1.1em;
+}
+
+content#herbario div div.invisible-layer{
+	width: 5vw;
+	background: none;
+	display: inline-block;
+	height: 100%;
+	position: relative;
+	padding: 0;
+	top: -10vh;
+	left: -.5vw;
+}
+
+content#herbario div div.invisible-layer button{
+	width: 40px;
+	margin: 5px;
+	height: 35px;
+	text-align: center;
+	padding: 0px 0px 0px 5px;
+	box-sizing: border-box;
+	background: none;
+	opacity: .6;
+}
+
+content#herbario div div.invisible-layer button:hover{
+	opacity: 1;
+}
+
+content#herbario div div.invisible-layer button span.bar{
+	height: 2px;
+	background: gray;
+	width: 80%;
+	position: relative;
+	display: block;
+	margin: 5px 0px;
+}
+
+content#herbario div div.info{
+	width: 93.5%;
+	height: 87.5vh;
+	overflow-y: hidden;
+	position: absolute;
+	top: 1vh;
+}
+
+content#herbario div div.info section.info-right{
+	width: 59%;
+	display: inline-block;
+	top: 0vh;
+	position: relative;
+}
+
+content#herbario div div.info h2{
+	margin-top:15px;
+}
+
+section.info-section{
+	width: 44%;
+	display: inline-block;
+	padding: 10px 20px;
+	box-sizing: border-box;
+}
+
+section.info-section.comentario, section.info-section.propiedad{
+	width: 87%;
+	position: relative;
+	display: block;
+	top: 0vh;
+	left: 6vw;
+	height: 25vh;
+}
+
+section.info-section.comentario label, section.info-section.propiedad label{
+	font-size: 1.2em;
+}
+
+section.img-option{
+	position: fixed;
+	background: white;
+	width: 65%;
+	height: 40%;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	top: 26.5%;
+	left: 17.5%;
+	padding: 5px 70px;
+	box-sizing: border-box;
+	z-index: 5;
+}
+
+section.where-image{
+	width: 40%;
+	display: inline-block;
+	margin-top: 4vh;
+}
+
+section.no-img{
+	width: 45vh;
+	height: 35vh;
+	border: 1px black solid;
+	margin-left: calc(50% - 18vh);
+	transition: background .3s ease-in-out;
+	cursor: pointer;
+}
+
+section.no-img:hover{
+	background: radial-gradient(ellipse at center, rgba(255,255,255,0) 0%,rgba(255,255,255,0.3) 100%);
+}
+
+section.no-img input{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+section.no-img img{
+	width: 20px;
+	height: 20px;
+	position: relative;
+	left: 52px;
+	bottom: 121px;
+	cursor: pointer;
+}
+
+section.frame{
+  position: relative;
+  width: 20vh;
+  height: 20vh;
+  display: block;
+  left: calc(50% - 10vh);
+  overflow: hidden;
+  text-align: center;
+  border: 1px black solid;
+  box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+section.frame img{
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  filter: brightness(115%) contrast(150%);
+}
+
+section.info-section.propiedad ul{
+	border-radius: 0;
+	border: none;
+	border-bottom: 1px gray solid;
+	padding: 0px;
+	background: rgba(0,0,0, 0);
+	color: black;
+	height: 135px;
+	overflow-y: scroll;
+	width: 28%;
+	display: inline-block;
+}
+
+li.semi-title{
+	border-bottom: 1px gray solid;
+}
+
+ul li.prop-li{
+	border: none;
+	cursor: default;
+	text-align: left;
+}
+
+img.url_image{
+	width: 80px;
+	position: absolute;
+	top: 28%;
+	right: 3%;
+}
+
+content#herbario div div.info section.info-section input{
+	text-align: center;
+}
+
+content#herbario div div.info img.output{
+	width: 45vh;
+	height: 35vh;
+	border: 1px black solid;
+	margin-left: calc(50% - 18vh);
+	filter: contrast(120%) brightness(115%);
+	opacity: .9;
+}
+
+content#herbario div div.info img.output:hover {
+	opacity: 1;
+}
+
+button.arrows{
+	position: absolute;
+	bottom: -16px;
+	color: black;
+	background: none;
+	font-size: 1.7em;
+	opacity: .4;
+	transition: all .3s ease-in-out;
+}
+
+button.arrows:hover{
+	opacity: .8;
+}
+
+button.arrows.L{
+	left: 0px;
+	transform: rotate(180deg);
+}
+
+button.arrows.R{
+	right: 0px;
+}
+
+/*---------------------------------------------------------- AGREGA ESPECIE -------------------------------------------------------- */
+
+.ae_view{
+	text-align: center;
+}
+
+section.loader{
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	display: inline-block;
+	margin: .5vw;
+	margin-left: 4.5%;
+	margin-top: 2%;
+	padding: 20px 2vw;
+	box-sizing: border-box;
+	width: 91%;
+	text-align: center;
+}
+
+div.no-image{
+	height: 20vh;
+	width: 20vh;
+	margin: 15px;
+	display: block;
+	border:1px gray solid;
+	position: relative;
+	left: calc(50% - 10vh - 16px);
+}
+
+form{
+	text-align: center;
+}
+
+form div.form-section{
+	padding: 1vh 2vw;
+	width: 45%;
+	height: 15vh;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	display: inline-block;
+	margin: .5vw;
+	box-sizing: border-box;
+}
+
+form div.form-section.comentario{
+	height: 20vh;
+	margin-bottom: 1.5vh;
+}
+
+form div.form-section input, content.ae-view div.loader input{
+	padding-top: 10px;
+	padding-bottom: 3px;
+	margin-bottom: 1vh;
+}
+
+form div.form-section.origen, form div.form-section.nombre_comun{
+	width: 29.5%;
+}
+
+form div.form-section.comentario{
+	width: 60%;
+	text-align: left;
+}
+
+form div.form-section.propiedades{
+	width: 30%;
+	height: 37vh;
+	text-align: center;
+	float: right;
+	margin-right: 4.5vw;
+	margin-left: -3vw;
+}
+
+div.form-section.propiedades ol{
+	height: 45%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-left: 2vw;
+	font-size: .8em;	
+}
+
+a.origen{
+	display: block;
+}
+
+div.form-section.propiedades ol li input.prop{
+	width: 70%;
+	margin-right: .5vw; 
+}
+
+div.form-section.propiedades ol li input.prior{
+	width: 20%
+}
+form div.form-section.origen input, form div.form-section.comentario textarea{
+	width: 90%;
+}
+
+div.form-section.tipo, div.form-section.clima{
+	width:45%;
+	height: 17vh;
+}
+
+
+form div.form-section label{
+
+}
+
+/*---------------------------------------------------------- JARDIN -------------------------------------------------------- */
+
+div.loggin-screen{
+	width: 100vw;
+	height: 90vh;
+	position: absolute;
+	top: 10vh;
+	left: 0vw;
+	background: white;
+}
+
+div.loggin-screen div.waiting img{
+	width: 10vh;
+	height: 10vh;
+	position: absolute;
+	top: 30vh;
+	left: calc(50% - 5vh);
+}
+
+content.garden{
+	margin-top: 10vh;
+	height: 90vh;
+}
+
+content h1.garden-title{
+	height: 8vh;
+	text-align: center;
+}
+
+content h2{
+	text-align: center;
+}
+
+content.garden section.main-view{
+	width: 100%;
+	height: 60%;
+	border-bottom: 1px gray solid;
+	border-top: 1px gray solid;
+	overflow-x: scroll;
+	overflow-y: auto;
+}
+
+content.garden section.main-view img.background{
+	width: 100%;
+	position: absolute;
+	z-index: -1;
+	top: 5vh;
+	opacity: 0.3;
+	height: 98vh;
+}
+
+div.new-section-form{
+  width: 76vw;
+  height: 76vh;
+  background: white;
+  box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+  position: fixed;
+  top: 12vh;
+  left: 12vw;
+  padding: 30px 20%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+div.new-section-form form{
+	
+}
+
+img.doblez{
+  position: absolute;
+  width: 71px;
+  top: -1px;
+  left: 0px;
+  cursor: pointer;
+}
+
+img.ns_bg{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  min-width: 76vw;
+  height: 76vh;
+  opacity: 0.3;
+  z-index: -1;
+}
+div.new-section-form form button{
+  background: none;
+  width: 40px;
+  height: 40px;
+  opacity: .6;
+  margin: 10px 15%;
+}
+
+div.new-section-form form button.selected{
+	opacity: .9;
+	transform: scale(1.1);
+}
+
+div.new-section-form form button:hover{
+	opacity: .75;
+	transform: scale(1.2);
+}
+
+div.new-section-form form button img{
+	width: 100%;
+  display: block;
+}
+
+div.new-section-form form button span{
+	font-size: .8em;
+	color: black;
+}
+
+content.garden section div.slot{
+	width: calc((60vh / 4) - 13px);
+	height: calc((60vh / 4) - 14px);
+	margin: 4px;
+	border: 1px gray dashed;
+	border-radius: 25%;
+	display: inline-block;
+	cursor: pointer;
+	background: rgba(255,255,255, .5);
+	opacity: .4;
+	text-align: center;
+	transition: all .3s ease-in-out;
+	overflow: hidden;
+}
+
+content.garden section div.slot.x2{
+	width: calc(((60vh / 4) - 13px) * 2);
+	height: calc(((60vh / 4) - 14px) * 2);
+	margin: 8px;
+}
+
+content.garden section div.slot.x4{
+	width: calc(((60vh / 4) - 13px) * 4);
+	height: calc(((60vh / 4) - 14px) * 4);
+	margin: 16px;
+}
+
+content.garden section div.slot.active{
+	border: 1px gray solid;
+	opacity: .6;
+}
+
+content.garden section div.slot span{
+	color: gray;
+}
+
+content.garden section div.slot.x2{
+	font-size: 2em;
+}
+
+content.garden section div.slot.x4{
+	font-size: 3em;
+}
+
+content.garden section div.slot:hover{
+	cursor: pointer;
+	opacity: 1;
+}
+
+div.row{
+	width: calc(((60vh / 4) - 3px) * 25);
+}
+
+div.row.x2{
+	width: calc(((60vh / 4) - 3px) * 50);
+}
+
+div.row.x4{
+	width: calc(((60vh / 4) - 4px) * 100);
+}
+
+div.section-opt{
+	text-align: center;
+	background: rgba(255,255,255, .6);
+}
+
+div.section-opt button.disabled{
+	opacity: .3;
+}
+
+section.garden-info{
+	background: rgba(255,255,255, .6);
+}
+
+a.arrows{
+	position: absolute;
+	font-size: 2em;
+	cursor: pointer;
+	opacity: .7;
+	transition: all .2s ease-in-out;
+}
+
+a.arrows:hover{
+	transform: scale(1.1);
+	opacity: .8;
+}
+
+a.arrows.l{
+	left: 15%;
+	margin-top: 7px;
+}
+
+a.arrows.r{
+	right: 15%;
+	margin-top: -50px;
+}
+
+section.garden-info span.seccion-tipo{
+
+}
+
+section.garden-info h2{
+	padding-top: 15px;
+	margin-bottom: 12px;
+}
+
+div.info-piece{
+	width: 24%;
+	display: inline-block;
+	text-align: center;
+}
+
+div.info-piece label{
+	font-size: .9em;
+}
+
+div.info-piece h3{
+	font-size: .9em;
+}
+
+section.garden-info span.seccion-tipo img{
+	position: absolute;
+	width: 40px;
+	margin-top: 6px;
+	margin-left: 10px;
+}
+
+section.garden-info a.seccion-fecha{
+	position: absolute;
+	right: 14px;
+	margin-top: -45px;
+	font-size: .9em;
+}
+
+div.nueva_planta{
+  width: 78%;
+  height: 90%;
+  top: 5%;
+  left: 11%;
+  background: white;
+  box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+  position: fixed;
+  padding: 20px 50px;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 50px;
+}
+
+div.nueva_planta div.new_plant_form div.icon_selection button.icon-btn{
+	background: none;
+	border: none;
+	opacity: .6;
+}
+
+div.nueva_planta div.new_plant_form{
+	padding: 15px 0;
+	margin: 2px 0;
+  border: 1px darkgray solid;
+  border-radius: 10px;
+}
+
+div.nueva_planta div.new_plant_form.icon{
+	overflow-x: scroll;
+
+}
+
+div.nueva_planta div.new_plant_form div.icon_selection{
+	height: 15%;
+	min-width: 100%;
+	max-width: 200%;
+	
+}
+
+div.nueva_planta div.new_plant_form div.icon_selection button.icon-btn img{
+	width: 50px;
+}
+
+div.nueva_planta div.new_plant_form div.icon_selection button.icon-btn.selected{
+	opacity: .9;
+	transform: scale(1.1);
+}
+
+div.nueva_planta div.new_plant_form div.icon_selection button.icon-btn:hover{
+	opacity: .8;
+	transform: scale(1.2);
+}
+
+div.nueva_planta div.new_plant_form.double select{
+	width: 30%;
+}
+
+div.nueva_planta div.new_plant_form.double input{
+	width: 10%;
+}
+
+div.nueva_planta input{
+	width: 50%;
+}
+
+div.nueva_planta select{
+	width: 45.5%;
+}
+
+div.nueva_planta input.npla{
+	width: 23%;
+}
+
+div.nueva_planta select.nple{
+	width: 27%;
+}
+
+div.planta{
+	width: 90vw;
+	position: fixed;
+	background: white;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.75);
+	left: 5vw;
+	height: 90vh;
+	top: 5vh;
+	padding: 4vh 2vw;
+	box-sizing: border-box;
+	border-radius: 50px;
+}
+
+div.planta h3{
+	text-align: center;
+	color: darkgray;
+	font-weight: inherit;
+	margin-bottom: 2vh;
+}
+
+div.planta img{
+	display: inline-block;
+	position: relative;
+	width: 30vh;
+	height: 30vh;
+	margin: 0 15vw;
+	border: 1px black solid;
+}
+
+div.planta div.right{
+	display: inline-block;
+	position: relative;
+	top: -12vh;
+}
+
+div.planta button, button.close-btn{
+	background: none;
+	color: gray;
+	width: 40px;
+	height: 36px;
+	border: none;
+	margin: 0;
+	padding: 0;
+	float: right;
+	opacity: .4;
+}
+
+div.planta button:hover, div.planta button.selected,  button.close-btn:hover{
+	opacity: .9;
+}
+
+div.planta ul{
+	margin-top: 2vh;
+	height: 26vh;
+	overflow-y: scroll;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.45);
+}
+
+div.planta ul li{
+	list-style: none;
+}
+
+div.main-content button.lenses{
+	background: none;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: 0px;
+	top: 8.5vh;
+	opacity: .5;
+}
+
+div.main-content button.lenses:hover{
+	opacity: .9;
+}
+
+div.main-content button.lenses.l{
+	right: 50px;
+}
+
+div.main-content button.lenses img{
+	width: 90%;
+	height: 80%;
+}
+
+div.planta button img,  button.close-btn img{
+	width:100%;
+	height: 100%;
+	border: none;
+	margin:0;
+}
+
+div.planta button img.plus{
+	width: 60%;
+  height: 60%;
+  margin-top: 3vh;
+}
+
+div.planta button img.close{
+	width: 60%;
+  height: 60%;
+}
+
+div.nueva_bitacora_open.ng-hide{
+	top:100vh;
+	opacity: 0;
+}
+
+div.nueva_bitacora_open.ng-hide-add, div.nueva_bitacora_open.ng-hide-remove{
+	transition: all linear .4s;
+}
+
+div.nueva_bitacora_open{
+	width: 60vw;
+	background: rgba(36, 168, 154, 1);
+	height: 60vh;
+	top: 20vh;
+	left: 20vw;
+	position: fixed;
+	padding: 40px;
+	box-sizing: border-box;
+	opacity: 1;
+	box-shadow: -4px 3px 5px 0px rgba(50, 50, 50, 0.45);
+	border-radius: 40px;
+	text-align: center;
+}
+
+div.nueva_bitacora_open h2{
+	color: white;
+	font-size: 1.8em;
+}
+
+div.nueva_bitacora_open textarea{
+	height: 51%;
+	background: rgba(255,255,255, .2);
+}
+
+div.nueva_bitacora_open label{
+	margin-top:2vh;
+	font-size: 1.2em; 
+}
+
+div.bitacora ul li{
+  padding-top: 3vh;
+  padding-left: 4vh;
+  padding-bottom: 2vh;
+  border-bottom: 1px gray solid;
+  cursor: default;
+  transition: all .3s linear;
+}
+
+div.bitacora ul li:hover{
+	background: lightgray;
+}
+
+div.bitacora ul li a{
+	display: block;
+	color: gray;
+	font-size: .8em;
+	width: 100%;
+}
+
+div.bitacora ul li p{
+	display: block;
+}
+label.sub{
+	font-size: .9em;
+}
+
+div.each-plant{
+	text-align: center;
+}
+
+div.each-plant img{
+	height: 70%;
+	display: block;
+	margin-left: 16%;
+}
+
+div.each-plant span{
+	font-size: .5em;
+}
+
+.z11{
+	z-index: 11;
+}
+
+.z10{
+	z-index: 10;
+}
+
+.z9{
+	z-index: 9;
+}
+
+.z8{
+	z-index: 8;
+}
+
+.z7{
+	z-index: 7;
+}
+
+.z6{
+	z-index: 6;
+}

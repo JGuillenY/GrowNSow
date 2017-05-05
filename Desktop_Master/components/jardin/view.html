@@ -1,0 +1,187 @@
+<div class="loggin-screen" ng-hide="garden_logged">
+	<div class="waiting" ng-hide="browser_support"><img src="img/ripple.svg"></img></div>
+	<div class="loggin" ng-show="browser_support">
+		<div class="log-main" ng-show="!new_user">
+			<h2>Inicia Sesión</h2>
+			<label>Usuario:</label>
+			<input type="text" ng-model="sesion_nombre"></input>
+			<label>Contraseña:</label>
+			<input type="password" ng-model="sesion_pass"></input>
+
+			<button ng-click="iniciar_sesion()">Iniciar Sesión</button> <button ng-click="new_user = true">Nuevo Usuario</button>
+		</div>	
+		<div class="log-main" ng-show="new_user">
+			<h2>Nuevo Usuario</h2>
+			<label>Usuario:</label>
+			<input type="text" ng-model="nuevo_usuario_nombre"></input>
+			<label>Nombre de Jardín:</label>
+			<input type="text" ng-model="nuevo_jardin_nombre"></input>
+			<label>Contraseña:</label>
+			<input type="password" ng-model="nuevo_usuario_pass"></input>
+			<a>{{message}}</a>
+			<button ng-click="registrar_usuario()">Registrar</button> <button ng-click="new_user = false">Usuario Existente</button>
+		</div>	
+	</div>
+</div>
+
+<div class="black-screen z8" ng-class="{'active': nueva_seccion_abierto || nueva_planta_abierto || planta_abierto}" ng-click="black_screen_click_j()"></div>
+
+<div class="black-screen z10" ng-class="{'active': new_bitacora}" ng-click="black_screen_click_j()"></div>
+<content ng-show="garden_logged" class="garden">
+	<button ng-click="cerrar_sesion()" title="Haga click para cerrar sesión.">Cerrar Sesion</button>	
+	<h1 class="garden-title">{{jardin.nombre}}</h1>
+	<button class="lenses l" ng-click="zoom_in()"><img src="img/zoom_in.png"></img></button> 
+	<button class="lenses" ng-click="zoom_out()"><img src="img/zoom_out.png"></img></button>
+
+	<section class="main-view">
+		<img class="background" ng-src="{{jardin[seccion_actual].bg_number}}"></img>
+
+		<div ng-show="nueva_seccion_abierto" class="new-section-form z9">
+		<button class="close-btn" ng-click="nueva_seccion_abierto = false"><img class="close" src="img/close.png"></img></button>
+			<img class="ns_bg" ng-src="{{garden_background}}">
+			<img class="doblez" src="img/doblez.png" ng-click="garden_bg_number_increase()"></img>
+			<form>
+				<h2>Nueva Sección</h2><br>
+				<label>Nombre:</label>
+				<input type="text" ng-model="nueva_seccion_nombre"></input><br>
+				<label>Tipo:</label>
+				<button ng-class="{'selected' : nueva_seccion_tipo == 'Interior'}" ng-click="nueva_seccion_tipo='Interior'"><img src="img/indoor.png"></img><span>Interior</span></button> 
+				<button ng-class="{'selected' : nueva_seccion_tipo == 'Exterior'}" ng-click="nueva_seccion_tipo='Exterior'"><img src="img/outdoor.png"></img><span>Exterior</span></button><br>
+				<label>Humedad:</label>
+				<input type="text" ng-model="nueva_seccion_humedad"></input><br>
+				<label>Temperatura(promedio):</label>
+				<input type="number" ng-model="nueva_seccion_temperatura"></input><br>
+				<label>Intensidad de Luz:</label>
+				<input type="text" ng-model="nueva_seccion_intensidad_luz"></input>
+			</form>
+			<button style="margin-left: calc(50% - 83px);" ng-click="nueva_seccion(0)">Aceptar</button><button ng-click="cancelar_seccion()">Cancelar</button>
+		</div>
+		<h2 ng-show="jardin.no_secciones == 0">Debes agregar una sección a tu jardín antes.</h2>
+
+
+		<div ng-show="nueva_planta_abierto" class="nueva_planta z9">
+		<button class="close-btn" ng-click="nueva_planta_abierto = false"><img class="close" src="img/close.png"></img></button>
+			<h2>Nueva Planta #{{planta_seleccionada}}</h2>
+			<h3>Fecha: {{today}}</h3>
+			<div class="new_plant_form">
+				<label>Nombre:</label>
+				<input type="text" ng-model="nueva_planta_nombre"></input>
+			</div>
+			<div class="new_plant_form">
+				<label>Especie:</label><br>
+				<label class="sub">Filtro:</label>
+				<input class="npla" type="text" ng-model="nueva_planta_pre"></input>
+				<select class="nple" ng-model="nueva_planta_especie_filtro">
+					<option value="nombre_comun">Nombre Común</option>
+					<option value="especie">Especie</option>
+					<option value="genero">Genero</option>
+					<option value="familia">Familia</option>
+					<option value="orden">Orden</option>
+					<option value="clase">Clase</option>
+					<option value="division">División</option>
+				</select><br>
+				<label class="sub">Selección:</label>
+				<select ng-model="nueva_planta_especie">
+					<option ng-repeat="opcion in database.Basic" ng-value="opcion.especie" ng-show="busca_especie(opcion)">{{opcion[nueva_planta_especie_filtro]}}</option>
+				</select>
+			</div>
+			<div class="new_plant_form double">
+				<label>Etapa:</label>
+				<select ng-model="nueva_planta_etapa">
+					<option value="semilla">Semilla</option>
+					<option value="semilla">Plántula</option>
+					<option value="semilla">Floración</option>
+					<option value="semilla">Fruto</option>
+				</select>
+				<label>Lapso de Riego:</label>
+				<input type="number" ng-model="nueva_planta_lapso_riego"></input>Horas
+			</div>
+			<div class="new_plant_form icon">
+				<label>Icono:</label>
+				<div class="icon_selection">
+					<button class="icon-btn" ng-repeat="n in [1,2,3,4,5,6,7,8]" ng-class="{'selected' : check_icon_selection(n)}" ng-click="select_icono(n)"><img ng-src="{{geticonurl(n)}}"></img></button>
+				</div>
+			</div>
+			<button ng-click="nueva_planta_aceptar()">Agregar</button><button ng-click="np_cancelar()">Cancelar</button>
+		</div>
+
+		<div class="nueva_bitacora_open z11" ng-hide="!new_bitacora">
+			<button class="close-btn" ng-click="new_bitacora = false"><img class="close" src="img/close.png"></img></button>
+			<h2>Nuevo Ingreso</h2>
+			<h3>Fecha:</h3><input type="date" ng-model="bitacora_fecha"></input>
+			<label>Bitácora:</label>
+			<textarea ng-model="bitacora"></textarea>
+			<button ng-click="nueva_bitacora(0)">Aceptar</button>
+			<button ng-click="new_bitacora = false">Cancelar</button>
+		</div>
+
+		<div ng-show="planta_abierto" class="planta z9">
+			<button class="close-btn" ng-click="planta_abierto = false"><img class="close" src="img/close.png"></img></button>
+			<h2>{{jardin[seccion_actual][planta_seleccionada].nombre}}</h2>
+			<h3>{{especie_provisional.especie}}</h3>
+			<img ng-src="{{especie_provisional.pictures[0]}}"></img>
+			<div class="right">
+				<h3>Fue agregada en: {{jardin[seccion_actual][planta_seleccionada].fecha}}</h3>
+				<h3>Etapa: {{jardin[seccion_actual][planta_seleccionada].etapa}}</h3>
+				<h3>Lapso de Riego: {{jardin[seccion_actual][planta_seleccionada].lapso_riego}}</h3>
+			</div>
+			<div class="seccion_baja">
+				<button ng-click="seccion_baja = 'bitacora'" ng-class="{'selected': seccion_baja == 'bitacora'}"><img src="img/bitacora.png"></img></button>
+				<button ng-click="seccion_baja = 'alarmas'" ng-class="{'selected': seccion_baja == 'alarmas'}"><img src="img/alarma.ico"></img></button>
+
+				<div ng-show="seccion_baja == 'bitacora'" class="bitacora">
+					<h2>Bitácora:</h2>
+					<ul>
+						<li ng-repeat="n in jardin[seccion_actual][planta_seleccionada].bitacora" ng-show="n.fecha != null">
+							<a>{{n.fecha}}</a>
+							<p>{{n.bitacora}}</p>
+						</li>
+					</ul>
+					<button ng-click="new_bitacora = true" class="plus"><img src="img/plus.png"></img></button>
+				</div>
+
+				<div ng-show="seccion_baja == 'alarmas'" class="alarmas">
+					<h2>Alarmas:</h2>
+					<ul>
+						<li></li>
+					</ul>
+					<button ng-click=""><img class="plus" src="img/plus.png"></img></button>
+				</div>
+			</div>
+		</div>
+
+		<div ng-hide="jardin.no_secciones == 0">
+			<div class="row" ng-class="{'x2' : slot_size == 2, 'x4' : slot_size == 4}" ng-repeat="i in [1,2,3,4]"> 
+				<div ng-repeat="slot in one" ng-click="select_slot(i + '' + slot)" class="slot" ng-class="{'active': jardin[seccion_actual][i + '' + slot] != null, 'x2' : slot_size == 2, 'x4' : slot_size == 4}">
+					<span ng-show="jardin[seccion_actual][i + '' + slot] == null">Vacío</span>
+					<div class="each-plant" ng-hide="jardin[seccion_actual][i + '' + slot] == null">
+						<img ng-src="{{jardin[seccion_actual][i + '' + slot].icono}}"></img>
+						<span>{{jardin[seccion_actual][i + '' + slot].nombre}}</span><br>
+						<span>{{jardin[seccion_actual][i + '' + slot].especie}}</span>
+					</div>
+				</div> 
+			</div>
+		</div>
+
+	</section>
+	<section ng-show="jardin.no_secciones > 0" class="garden-info">
+		<span class="seccion-tipo" ng-show="jardin[seccion_actual].tipo == 'Interior'"><img src="img/indoor.png"></span>
+		<span class="seccion-tipo" ng-show="jardin[seccion_actual].tipo == 'Exterior'"><img src="img/outdoor.png"></span>
+
+		<a class="arrows l" ng-click="left_section()" ng-show="seccion_actual > 0"><</a>
+		<h2>{{jardin[seccion_actual].nombre}}</h2>
+		<a class="arrows r" ng-click="rigth_section()" ng-show="seccion_actual < jardin.no_secciones - 1">></a>
+
+		<a class="seccion-fecha">{{jardin[seccion_actual].fecha}}</a>
+		<div>
+			<div class="info-piece"><label>Temperatura:</label><h3> {{jardin[seccion_actual].temperatura}}</h3></div>
+			<div class="info-piece"><label>Humedad:</label><h3> {{jardin[seccion_actual].humedad}}</h3></div>
+			<div class="info-piece"><label>Intensidad de Luz:</label><h3> {{jardin[seccion_actual].intensidad_luz}}</h3></div>
+			<div class="info-piece"><label>No. de Plantas:</label><h3>{{jardin[seccion_actual].no_especies}}</h3></div>
+		</div>
+	</section>
+	<div class="section-opt">
+		<button ng-click="nueva_seccion_abierto = true">Nueva Sección</button>
+		<button ng-class="{'disabled': jardin.no_secciones == 0}" ng-click="eliminar_seccion()">Eliminar Sección</button>
+	</div>
+</content>

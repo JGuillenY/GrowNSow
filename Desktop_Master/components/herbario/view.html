@@ -1,0 +1,106 @@
+<content id="herbario">
+	<div>
+		<div ng-class="{'open':side_menu_open == true}" class="list">
+			<span class="lupa"><img src="img/magnifier.png"></img></span>
+			<input type="text" ng-model="search_item" value="Búsqueda" placeholder="Búsqueda"></input>
+			<span class="filtro"><img src="img/filter.png"></img></span>
+			<select name="filtro" ng-model="search_type" class="filter">
+				<option value="nombre_comun">Nombre Común</option>
+				<option value="especie">Especie</option>
+				<option value="genero">Genero</option>
+				<option value="familia">Familia</option>
+				<option value="orden">Orden</option>
+				<option value="clase">Clase</option>
+				<option value="division">División</option>
+			</select>
+
+			<ul>
+				<li class="especies" ng-repeat="especie in lista_especies" ng-class="{'selected': especie_seleccionada == especie.id, 'red': count== 1, 'blue':count==2, 'green':count==3}" ng-show="check_order(especie)" ng-click="select_from_list(especie)"><a class="maint">{{especie[search_type]}} </a><br><a class="submaint"> {{especie.especie}}</a></li>
+			</ul>
+			<span style="left: -1vw;">{{database.Basic.no_especies}} especies registradas.</span>
+		</div>
+		<div class="invisible-layer">
+			<button class="side-bar-button" ng-click="open_sidebar()">
+				<span class="bar"></span>
+				<span class="bar"></span>
+				<span class="bar"></span>
+			</button>
+		</div>
+		<div class="info" ng-class="{'desertico':database.Basic[especie_seleccionada].clima == 'desertico', 'seco':database.Basic[especie_seleccionada].clima == 'seco', 'calido':database.Basic[especie_seleccionada].clima == 'calido', 'tropical':database.Basic[especie_seleccionada].clima == 'tropical', 'humedo':database.Basic[especie_seleccionada].clima == 'humedo', 'frio':database.Basic[especie_seleccionada].clima == 'frio', 'tundra':database.Basic[especie_seleccionada].clima == 'tundra', 'neutral':database.Basic[especie_seleccionada].clima == 'na'}">
+			<img ng-attr-title='Es una planta tipo: {{database.Basic[especie_seleccionada].tipo}}' class="type-img" ng-src="img/{{database.Basic[especie_seleccionada].tipo}}.png" ng-show="especie_seleccionada != ''"></img>
+
+			<button class="new_specie" ui-sref="agregar_especie"><img src="img/new_especie.png"></img></button>
+			<h2>{{edit_especie}}</h2>
+
+			<section ng-show="open_image_option" class="img-option">
+				<h2>Usa un archivo o una url de internet.</h2>
+				<section>
+					<h3>Url</h3>
+					<input type="text" ng-model="image_url" placeholder="url de la imagen"></input>
+					<h3>Local</h3>
+					<input id="es_img" type='file' accept='image/*' ng-click='openFile()'><br>
+				</section>
+				<img class="url_image" ng-src="{{image_url}}"></img>
+				<button ng-click="upload_image()">Agregar</button><button ng-click="cancel_image()">Cancelar</button>
+			</section>
+			
+			<section class="where-image" ng-show="especie_seleccionada != ''">
+				<section class="no-img" ng-show="database.Basic[especie_seleccionada].pictures==null" ng-click="open_image_option = true">
+				</section>
+				<img ng-hide="database.Basic[especie_seleccionada].pictures==null" id='output' ng-src="{{database.Basic[especie_seleccionada].pictures[current_image].url}}"></img>
+			</section>
+			
+			<section class="info-right">
+				<section class="info-section">
+					<label>Nombre Común</label>
+					<input ng-keypress="keyPressed($event)" type="text" ng-model="edit_nombre_comun"></input>
+				</section>
+				<section class="info-section">
+					<label>Género</label>
+					<input ng-keypress="keyPressed($event)" type="text" type="text" ng-model="edit_genero"></input>
+				</section>
+				<section class="info-section">
+					<label>Familia</label>
+					<input ng-keypress="keyPressed($event)" type="text" type="text" ng-model="edit_familia"></input>
+				</section>
+				<section class="info-section">
+					<label>Orden</label>
+					<input ng-keypress="keyPressed($event)" type="text" type="text" ng-model="edit_orden"></input>
+				</section>
+				<section class="info-section">
+					<label>Clase</label>
+					<input ng-keypress="keyPressed($event)" type="text" type="text" ng-model="edit_clase"></input>	
+				</section>
+				<section class="info-section">
+					<label>Division</label>
+					<input ng-keypress="keyPressed($event)" type="text" type="text" ng-model="edit_division"></input>
+				</section><br>
+				<a class="origen">Lugar de orígen: {{database.Basic[especie_seleccionada].origen}}</a>
+			</section>
+			
+			<section class="info-section comentario" ng-show="bottom_section == 'comments'">
+				<label>Comentario</label><span ng-click="bottom_section = 'properties'">></span>
+				<textarea ng-keypress="keyPressed($event)" type="text" ng-model="edit_comentario">{{edit_comentario}}</textarea>
+			</section>
+
+			<section class="info-section propiedad" ng-show="bottom_section == 'properties'">
+				<span ng-click="bottom_section = 'comments'"><</span><label>Propiedades:</label><br>
+				<ul>
+					<li class="semi-title">Medicinales</li>
+					<li class="prop-li" ng-repeat="n in edit_propiedades['medicinales']" ng-hide="n.property == undefined">{{n.property}}</li>
+				</ul>
+				<ul>
+					<li class="semi-title">Nutrimentales</li>
+					<li class="prop-li" ng-repeat="n in edit_propiedades['nutrimentales']" ng-hide="n.property == undefined">{{n.property}}</li>
+				</ul>
+				<ul>
+					<li class="semi-title">Advertencias</li>
+					<li class="prop-li" ng-repeat="n in edit_propiedades['restricciones']" ng-hide="n.property == undefined">{{n.property}}</li>
+				</ul>
+				</textarea>
+			</section>
+			<button class="agregar-btn" ng-click="edit_e()">Editar</button> <button class="agregar-btn" ng-click="delete()">Eliminar</button>
+			<button class="arrows L" ng-click="left_specie()">&#10145;</button> <button class="arrows R" ng-click="right_specie()">&#10145;</button>	
+		</div>
+	</div>
+</content>
