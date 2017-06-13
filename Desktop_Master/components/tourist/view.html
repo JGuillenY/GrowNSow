@@ -1,0 +1,116 @@
+<div class="search" ng-hide="visit_loged">
+	<h2 ng-show="">Resultados</h2>
+	<img class="tourist-background" src="img/leaft_pattern3.jpg">
+	<ul class="alaas">
+		<li class="jardin_resultado" ng-repeat="result in results">
+			<h3>{{result.jardin.nombre}}</h3>
+			<img ng-src="{{result.url}}"><br>
+			<h4>{{result.usuario}}</h4>
+			<h6></h6>
+			<label ng-show="result.jardin.visibilidad == 'privado'">Jardín Privado. Ingrese el código de pase.</label>
+			<input type="password" ng-show="result.jardin.visibilidad == 'privado'">
+			<button ng-click="visit_garden(result.jardin)">visitar</button>
+		</li>
+	</ul>
+	<section class="tourist">
+		<h1>- Visita un Jardín -</h1>
+		<div>
+			<label>Nombre del Jardín o del Usuario al que quieres visitar.</label>
+			<input type="text" ng-model="tourist_visit">
+			<button ng-show="tourist_visit != ''" ng-click="ir()">ir</button>
+		</div>
+	</section>
+</div>
+
+<div class="visited_garden">
+	<content ng-show="visit_loged" class="garden">
+		
+		<h1 class="garden-title">{{tour.nombre}}</h1>
+
+		<section class="main-view" ng-class="{'red': tour[seccion_actual].bg_number == 1, 'white': tour[seccion_actual].bg_number == 0, 'blue': tour[seccion_actual].bg_number == 2, 'green': tour[seccion_actual].bg_number == 3, 'yellow': tour[seccion_actual].bg_number == 4, 'pink': tour[seccion_actual].bg_number == 5, 'gray': tour[seccion_actual].bg_number == 6, 'orange': tour[seccion_actual].bg_number == 7, 'brown': tour[seccion_actual].bg_number == 8, 'purple': tour[seccion_actual].bg_number == 9}">
+
+			<div ng-show="planta_abierto" class="planta z9">
+				<button class="close-btn" ng-click="planta_abierto = false"><img class="close" src="img/close.png"></img></button>
+				<h2>{{tour[seccion_actual][planta_seleccionada].nombre}}</h2>
+				<h3>{{especie_provisional.especie}}</h3>
+				<img ng-src="{{especie_provisional.pictures[0].url}}"></img>
+				<div class="right">
+					<h3>Fue agregada en: {{tour[seccion_actual][planta_seleccionada].fecha}}</h3>
+					<h3>Etapa: {{tour[seccion_actual][planta_seleccionada].etapa}}</h3>
+					<h3>Lapso de Riego: {{tour[seccion_actual][planta_seleccionada].lapso_riego}}</h3>
+				</div>
+				<div class="seccion_baja">
+					<button ng-click="seccion_baja = 'bitacora'" ng-class="{'selected': seccion_baja == 'bitacora'}"><img src="img/bitacora.png"></img></button>
+					<button ng-click="seccion_baja = 'alarmas'" ng-class="{'selected': seccion_baja == 'alarmas'}"><img src="img/alarma.ico"></img></button>
+
+					<div ng-show="seccion_baja == 'bitacora'" class="bitacora">
+						<h2>Bitácora:</h2>
+						<ul>
+							<li ng-repeat="n in tour[seccion_actual][planta_seleccionada].bitacora" ng-show="n.fecha != null">
+								<a>{{n.fecha}}</a>
+								<p>{{n.bitacora}}</p>
+							</li>
+						</ul>
+						<button ng-click="new_bitacora = true" class="plus"><img src="img/plus.png"></img></button>
+					</div>
+
+					<div ng-show="seccion_baja == 'alarmas'" class="alarmas">
+						<h2>Alarmas:</h2>
+						<ul>
+							<li></li>
+						</ul>
+						<button ng-click=""><img class="plus" src="img/plus.png"></img></button>
+					</div>
+				</div>
+			</div>
+
+			<div ng-hide="tour.no_secciones == 0">
+				<div class="row" ng-class="{'x2' : slot_size == 2, 'x4' : slot_size == 4}" ng-repeat="i in [1,2,3,4]"> 
+					<div ng-repeat="slot in one" ng-click="select_slot(i + '' + slot)" class="slot" ng-class="{'active': tour[seccion_actual][i + '' + slot] != null, 'x2' : slot_size == 2, 'x4' : slot_size == 4}">
+						<span ng-show="tour[seccion_actual][i + '' + slot] == null">Vacío</span>
+						<div class="each-plant" ng-hide="tour[seccion_actual][i + '' + slot] == null">
+							<img ng-src="{{tour[seccion_actual][i + '' + slot].icono}}"></img>
+							<span>{{tour[seccion_actual][i + '' + slot].nombre}}</span><br>
+							<span>{{tour[seccion_actual][i + '' + slot].especie}}</span>
+						</div>
+					</div> 
+				</div>
+			</div>
+
+		</section>
+
+		<section ng-show="tour.no_secciones > 0" class="garden-info">
+			<span class="seccion-tipo" ng-show="tour[seccion_actual].tipo == 'Interior'"><img src="img/indoor.png"></span>
+			<span class="seccion-tipo" ng-show="tour[seccion_actual].tipo == 'Exterior'"><img src="img/outdoor.png"></span>
+
+			<a class="arrows l" ng-click="left_section()" ng-show="seccion_actual > 0"><</a>
+			<h2>{{tour[seccion_actual].nombre}}</h2>
+			<a class="arrows r" ng-click="rigth_section()" ng-show="seccion_actual < tour.no_secciones - 1">></a>
+
+			<a class="seccion-fecha">{{tour[seccion_actual].fecha}}</a>
+			<div class="seccion-section" style="width: 25%; margin-left: 2%;position: relative;top: -.9vh;">
+				<div class="info-piece"><label>Temperatura:</label><h3> {{tour.temperatura}}°C</h3></div>
+				<div class="info-piece"><label>Clima:</label><h3> {{tour.clima}}</h3></div>
+				<div class="info-piece" ng-show="tour[seccion_actual].temperatura != undefined"><label>Clima Interno:</label><h3> {{tour[seccion_actual].temperatura}}°C</h3></div>
+				<div class="info-piece"><label>No. de Plantas:</label><h3>{{tour[seccion_actual].no_especies}}</h3></div>
+				<img ng-attr-title="{{tour.message}}" class="weatherico" ng-src="{{tour.temp_url}}">
+			</div>
+			<div class="seccion-section" style="width: 67%;">
+				<div style="width: 45px;display: inline-block; text-align: center;">
+					<button title="Bitácora de la sección." ng-click="seccion_info_selected = 'bitacora'" class="seccion-section-btn" ng-class="{'active': seccion_info_selected == 'bitacora'}"><img src="img/bitacora.png"></img></button>
+					<button title="Alarmas." ng-click="seccion_info_selected = 'alarma'" class="seccion-section-btn" ng-class="{'active': seccion_info_selected == 'alarma'}"><img src="img/alarma.ico"></img></button>
+				</div>
+				<ul class="class-text">
+					<li ng-show="seccion_info_selected == 'bitacora' && tour[seccion_actual].bitacora == undefined">No hay ningún registro en la bitácora de {{tour[seccion_actual].nombre}}.</li>
+					<li ng-repeat="bitacora in tour[seccion_actual].bitacora" ng-show="seccion_info_selected == 'bitacora' && tour[seccion_actual].bitacora != undefined"><label>{{bitacora.fecha}}</label><p>{{bitacora.bitacora}}</p></li>
+					<li ng-show="seccion_info_selected == 'alarma' && tour[seccion_actual].alarmas == undefined">No hay ninguna alarma activa en {{tour[seccion_actual].nombre}}.</li>
+					<li ng-repeat="alarma in tour[seccion_actual].alarmas" ng-show="seccion_info_selected == 'alarma' && alarma != undefined"><label>{{alarma.fecha}}</label><p>{{alarma.contenido}}</p></li>
+				</ul>
+			</div>
+			<div class="seccion-section" style="width: 45px; position: relative;top: -9vh;">
+				<button class="seccion-section-btn" ng-click="add_seccion_info()"><img src="img/plus.png"></img></button>
+			</div>
+		</section>
+	</content>
+
+</div>

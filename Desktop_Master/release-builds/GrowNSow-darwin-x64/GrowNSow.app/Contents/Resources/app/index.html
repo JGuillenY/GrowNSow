@@ -1,0 +1,104 @@
+<html ng-app="gnsApp" lang="es">
+	<head>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<meta charset="UTF-8">
+    <title>Grow & Sow</title>
+    <!--<link href="lib/css/bootstrap.min.css" rel="stylesheet">-->
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/background_colors.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Crimson+Text|Inknut+Antiqua|Sorts+Mill+Goudy|Special+Elite" rel="stylesheet">
+		<!--<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Raleway" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin+Sketch|Gloria+Hallelujah|Macondo|Nunito|Rancho|Satisfy" rel="stylesheet">  -->
+	</head>
+	<body ng-controller="loadController">
+	<!-- CUSTOM ALERT TYPES --><!--
+		<div ng-show="alert_sobre" class="alert">
+    	<span>Sobreescribiendo datos.</span><br>
+    	<button ng-click="alert_sobre=false">Aceptar</button>
+    </div>
+
+		<div ng-show="confirm_sobre" class="alert">
+    	<span>La especie ya existe. Desea sobreescribir?</span><br>
+    	<button ng-click="confirm_aceptar()">Aceptar</button> <button ng-click="confirm_cancelar()">Cancelar</button>
+    </div>
+
+		<div ng-show="alert_exito" class="alert">
+    	<span>Especie agregada exitósamente!</span><br>
+    	<button ng-click="alert_exito=false">Aceptar</button>
+    </div>
+
+    <div ng-show="alert_empty_field" class="alert">
+    	<span>No puede dejar el campo vacío.</span><br>
+    	<button ng-click="alert_empty_field=false">Aceptar</button>
+    </div>-->
+
+		<div class="loading" ng-show="!done">
+      <img src="img/gears.svg"></img><br>
+      <a>Cargando...</a>
+      <div ng-show="empty_alert" class="alert">
+    		<span>La base de datos está vacía.</span><br>
+    		<button ng-click="empty_alert_accept()">Aceptar</button>
+			</div>
+    </div>
+    <div class="loaded ng-hide" ng-show="done">
+    	<nav class="top-menu" ng-class="{'opened': main_menu_open}">
+    		<ul class="main-menu">
+    			<li ui-sref="herbario" ng-class="{'selected': main_menu=='herbario'}" class="main-menu-option" ng-click="select_menu_option('herbario')"><a>Herbario</a></li>
+
+    			<li ui-sref="jardin" ng-class="{'selected': main_menu=='jardin'}" class="main-menu-option" ng-click="select_menu_option('jardin')"><a>Jardín</a></li>
+
+    			<li ui-sref="manejar_datos" ng-class="{'selected': main_menu=='manejar_datos'}" class="main-menu-option" ng-click="select_menu_option('manejar_datos')"><a>Cómo y Cuándo</a></li>
+    		</ul>
+    		<h1 class="sow">Grow and Sow</h1>
+    		<button class="open-menu" ng-click="main_menu_open = true">
+    			<img ng-class="{'open':main_menu_open}" src="img/menu.png"></img>
+    		</button>
+    	</nav>
+    	<div class="black-screen z8" ng-class="{'active': main_menu_open}" ng-click="black_screen_click()"></div>
+    	<div class="main-content" ui-view></div>
+    </div>
+	</body>
+	<!-- JQUERY INJECTIONS -->
+	<script src="lib/js/jquery3.2.1.min.js"></script> 
+	<script src="lib/js/jquery.simpleWeather.min.js"></script>
+	
+
+	<!-- ANGULAR INJECTIONS -->
+	<script src="lib/js/angular.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="lib/js/angular-ui-router.js"></script>
+
+	<script src="components/herbario/controller.js"></script>
+	<script src="components/agregar_especie/controller.js"></script>
+	<script src="components/configuracion_perfil/controller.js"></script>
+	<script src="components/jardin/controller.js"></script>
+	<script src="components/manejar_datos/controller.js"></script>
+	<script src="components/calendar/controller.js"></script>
+	<script src="components/tourist/controller.js"></script>
+
+	<!-- -->
+	<script src="lib/js/moon_phase.js"></script>
+
+	<!-- FIREBASE INJECTIONS -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+	
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBe9R1WAKF7OIYaod2kII2_G7_aoxCPNns",
+	    authDomain: "publicdb-cb7ee.firebaseapp.com",
+	    databaseURL: "https://publicdb-cb7ee.firebaseio.com",
+	    projectId: "publicdb-cb7ee",
+	    storageBucket: "publicdb-cb7ee.appspot.com",
+	    messagingSenderId: "133859649457"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+
+	<!-- Angular Fire INJECTION -->
+	<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+	<!-- APP MAIN JS-->
+	<script src="js/app.js"></script>
+</html>

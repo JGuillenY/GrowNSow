@@ -1,0 +1,76 @@
+<!--                   PROFILE CONFIG                        -->
+<content class="profile_config">
+	<nav class="pc_menu">
+		<h2>Menú</h2>
+		<ul>
+			<li ng-click=" profile_menu_selection = 'general'" ng-class="{'selected': profile_menu_selection == 'general'}">General</li>
+			<li ng-click=" profile_menu_selection = 'ubicacion'" ng-class="{'selected': profile_menu_selection == 'ubicacion'}">Ubicación e Idioma</li>
+			<li ng-click=" profile_menu_selection = 'seguridad'" ng-class="{'selected': profile_menu_selection == 'seguridad'}">Seguridad</li>
+		</ul>
+	</nav>
+
+	<content ng-show="profile_menu_selection == 'general'" class="profile_mainview">
+		<header>
+			<div>
+				<input id="background_input" class="ng-hide" type="file">
+				<img style="width: 100%;" class="prof_background" ng-src="{{profile.background_url}}">
+			</div>
+			<h2>Configuración de Perfil</h2>
+			<input id="profile_input" class="ng-hide" type="file">
+			<img id="clickonme" ng-src="{{profile.url}}" ng-click="changeProfilePicture()">
+			<h2>{{profile.jardin.nombre}}</h2>
+			<h3>{{profile.jardin.fecha_de_creacion}}</h3>
+			<button class="uploadP" ng-click="uploadPics('profile_input')">Actualizar Imágenes</button>
+			<button class="browse" ng-click="changeBackgroundPicture()"><img src="img/menu.png"></button>
+		</header>
+		<form>
+			<label>Nombre:</label>
+			<input>
+			<label>Nombre del Jardín:</laabel>
+			<input type="text" ng-model="profile.jardin.nombre">
+			<label>Visibilidad</label>
+			<select ng-model="profile.visibilidad">
+				<option value="publico">Público</option>
+				<option value="privado">Privado</option>
+			</select>
+			<label ng-show="profile.visibilidad != 'publico'">Pase de Turista:</label>
+			<input ng-show="profile.visibilidad != 'publico'" type="password" ng-model="profile.pase_turista">
+		</form>
+	</content>
+
+	<content ng-show="profile_menu_selection == 'ubicacion'" class="profile_mainview">
+		<h2>Ubicación y Lenguaje</h2>
+		<form>		
+			<label>Localización:</label>
+			<select name="country" class="countries order-alpha" id="countryId">
+			    <option value="-1" selected>Selecciona el País</option>
+			</select>
+			<select name="state" class="states order-alpha" id="stateId">
+			    <option value="-1" selected>Selecciona el Estado</option>
+			</select>
+			<select name="city" class="cities order-alpha" id="cityId">
+			    <option value="-1" selected>Selecciona la Ciudad</option>
+			</select>
+			<label>Idioma:</label>
+			<select ng-model="language">
+				<option value="es" selected>Español</option>
+				<option value="en">Inglés</option>
+			</select>
+		</form>
+	</content>
+
+	<content ng-show="profile_menu_selection == 'seguridad'" class="profile_mainview">
+		<h2>Seguridad</h2>
+		<form>		
+			<label>Contraseña de Cuenta:</label>
+			<label>Actual:</label>
+			<input type="password" ng-model="old_password">
+			<h4 ng-show="old_password != '' && old_password != profile.pass">La contraseña actual no concuerda</h4>
+			<label>Nueva:</label>
+			<input type="password" ng-model="new_password">
+			<input type="password" ng-model="check_password">
+			<h4 ng-show="check_password != '' && check_password != new_password">La nueva contraseña no concuerda</h4>
+		</form>
+	</content>
+	
+</content>

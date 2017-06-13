@@ -1,0 +1,31 @@
+<section class="calendar">
+	<img class="calendar-background" src="img/calendar_background1.jpg">
+	<button class="lee" ui-sref="jardin">
+		<img src="img/white_back.png">
+	</button>
+	<content ng-show="calendar_section == 'single'" class="single-day">
+		<img class="moon" ng-src="{{moon.url}}">
+		<div class="text">
+			<h3 class="moon-text">{{moon.name}}</h3>
+			<h4 class="moon-text">{{calendar_fecha}}</h4>
+			<p class="moon-text">{{moon.message}}</p>
+		</div>
+		<button ng-click="calendar_section = 'calendar'"><img class="calendar" src="img/calendar.png"></button>
+	</content>
+
+	<content ng-show="calendar_section == 'calendar'" class="calendar" style="text-align: center;">
+		<h3 class="moon-text">{{month}}</h3>
+		<button class="arrow_left" ng-click="less_month()"><</button>
+		<button class="arrow_right" ng-click="more_month()">></button>
+		<ul>
+			<li class="header">Lúnes</li>
+			<li class="header">Martes</li>
+			<li class="header">Miércoles</li>
+			<li class="header">Jueves</li>
+			<li class="header">Viernes</li>
+			<li class="header">Sábado</li>
+			<li class="header">Domingo</li>
+			<li class="square" ng-repeat="dia in currentMonth" ng-class="{'tod': istoday(dia.dia_number), 'phantom': dia.dia_number == undefined}" ng-click="select_dia(dia)"><span>{{dia.dia_number + 1}}</span><img class="mini-url" ng-src="{{dia.moon.url}}"></li>
+		</ul>
+	</content>
+</section>

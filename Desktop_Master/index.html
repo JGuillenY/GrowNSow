@@ -5,6 +5,7 @@
     <title>Grow & Sow</title>
     <!--<link href="lib/css/bootstrap.min.css" rel="stylesheet">-->
 		<link href="css/style.css" rel="stylesheet">
+		<link href="css/background_colors.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Crimson+Text|Inknut+Antiqua|Sorts+Mill+Goudy|Special+Elite" rel="stylesheet">
 		<!--<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Raleway" rel="stylesheet"> 
 		<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
@@ -47,7 +48,7 @@
 
     			<li ui-sref="jardin" ng-class="{'selected': main_menu=='jardin'}" class="main-menu-option" ng-click="select_menu_option('jardin')"><a>Jardín</a></li>
 
-    			<li ui-sref="manejar_datos" ng-class="{'selected': main_menu=='manejar_datos'}" class="main-menu-option" ng-click="select_menu_option('manejar_datos')"><a>Manejar Datos</a></li>
+    			<li ui-sref="manejar_datos" ng-class="{'selected': main_menu=='manejar_datos'}" class="main-menu-option" ng-click="select_menu_option('manejar_datos')"><a>Cómo y Cuándo</a></li>
     		</ul>
     		<h1 class="sow">Grow and Sow</h1>
     		<button class="open-menu" ng-click="main_menu_open = true">
@@ -59,7 +60,9 @@
     </div>
 	</body>
 	<!-- JQUERY INJECTIONS -->
-	<script src="lib/js/jquery-3.1.1.js"></script>
+	<script src="lib/js/jquery3.2.1.min.js"></script> 
+	<script src="lib/js/jquery.simpleWeather.min.js"></script>
+	
 
 	<!-- ANGULAR INJECTIONS -->
 	<script src="lib/js/angular.js"></script>
@@ -68,9 +71,16 @@
 
 	<script src="components/herbario/controller.js"></script>
 	<script src="components/agregar_especie/controller.js"></script>
+	<script src="components/configuracion_perfil/controller.js"></script>
 	<script src="components/jardin/controller.js"></script>
 	<script src="components/manejar_datos/controller.js"></script>
+	<script src="components/calendar/controller.js"></script>
+	<script src="components/tourist/controller.js"></script>
 
+	<!-- -->
+	<script src="lib/js/moon_phase.js"></script>
+
+	<script src="lib/js/countrystatecity.js"></script>
 	<!-- FIREBASE INJECTIONS -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
 	

@@ -1,0 +1,76 @@
+.white{
+	background: white;
+}
+
+.red{
+	background: rgba(255, 78, 85, .7);
+}
+
+.blue{
+	background: rgba(65, 172, 196, .7);
+}
+
+.green{
+	background: rgba(136, 219, 127, .7);
+}
+
+.yellow{
+	background: rgba(255, 255, 171, .7);
+}
+
+.pink{
+	background: rgba(255, 196, 218, .7);
+}
+
+.purple{
+	background: rgba(129, 127, 179, .7);
+}
+
+.gray{
+	background: rgba(80, 80, 80, .7);
+}
+
+.orange{
+	background: rgba(255, 188, 127, .7);
+}
+
+.brown{
+	background: rgba(228, 190, 170, .7);
+}
+
+
+.redlight{
+	background: rgba(255, 78, 85, 1);
+}
+
+.bluelight{
+	background: rgba(65, 172, 196, 1);
+}
+
+.greenlight{
+	background: rgba(136, 219, 127, 1);
+}
+
+.yellowlight{
+	background: rgba(255, 255, 171, 1);
+}
+
+.pinklight{
+	background: rgba(255, 196, 218, 1);
+}
+
+.purplelight{
+	background: rgba(129, 127, 179, 1);
+}
+
+.graylight{
+	background: rgba(80, 80, 80, 1);
+}
+
+.orangelight{
+	background: rgba(255, 188, 127, 1);
+}
+
+.brownlight{
+	background: rgba(228, 190, 170, 1);
+}
