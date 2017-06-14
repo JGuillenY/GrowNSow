@@ -1,5 +1,5 @@
 angular.module('gns.controllers')
-.controller('jardinController', function($scope, $firebaseObject){
+.controller('jardinController', function($scope, $firebaseObject) {
 
 	var rootRef = firebase.database().ref();
 	var db = $firebaseObject(rootRef)
@@ -47,7 +47,7 @@ angular.module('gns.controllers')
 
 	$scope.seccion_info_selected = 'bitacora'
 
-	$scope.garden_bg_number_increase = function(){
+	$scope.garden_bg_number_increase = () => {
 		console.log($scope.garden_bg_number)
 		if($scope.garden_bg_number == 9){
 			$scope.garden_bg_number = 0 
@@ -98,7 +98,7 @@ angular.module('gns.controllers')
 	$scope.localization = true
 	$scope.prueba_nuevo_usuario_pass = ''
 
-	$scope.checkImage = function(){
+	$scope.checkImage = () => {
 		if(db.usuarios[$scope.sesion_nombre] == undefined){
 			return ''
 		}else{
@@ -106,7 +106,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.checkPassword = function(){
+	$scope.checkPassword = () => {
 		if($scope.prueba_nuevo_usuario_pass == $scope.nuevo_usuario_pass){
 			return true
 		}else{
@@ -114,7 +114,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.getId = function(especie){
+	$scope.getId = (especie) => {
 		for(i in db.Basic){
 			if(db.Basic[i].especie == especie){
 				return db.Basic[i].id
@@ -122,7 +122,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.toggle_sm = function(){
+	$scope.toggle_sm = () => {
 		if($scope.op_sm){
 			$scope.op_sm = false
 		}else{
@@ -130,39 +130,39 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.black_screen_click_j = function(){
+	$scope.black_screen_click_j = () => {
 			$scope.nueva_planta_abierto = false
 			$scope.nueva_seccion_abierto = false
 			$scope.planta_abierto = false
 			$scope.new_bitacora = false
 		}	
 
-	$scope.zoom_in = function(){
+	$scope.zoom_in = () => {
 		if($scope.slot_size < 4){
 			$scope.slot_size *= 2
 		}
 	}
 
-	$scope.zoom_out = function(){
+	$scope.zoom_out = () => {
 		if($scope.slot_size > 1){
 			$scope.slot_size /= 2
 		}
 	}
 
-	$scope.left_section = function(){
+	$scope.left_section = () => {
 		if($scope.seccion_actual > 0){
 			$scope.seccion_actual--
 			$scope.garden_bg_number = $scope.jardin[$scope.seccion_actual].bg_number
 		}
 	}
 
-	$scope.rigth_section = function(){
+	$scope.rigth_section = () => {
 		if($scope.seccion_actual < $scope.jardin.no_secciones - 1){
 			$scope.seccion_actual++
 		}
 	}
 
-	$scope.save_garden = function(opt){
+	$scope.save_garden = (opt) => {
 		if(opt){
 			db.usuarios[$scope.current_user] = $scope.cu
 		}else{
@@ -172,7 +172,7 @@ angular.module('gns.controllers')
 		db.$save()
 	}
 
-	$scope.section_reestruct = function(){
+	$scope.section_reestruct = () => {
 		var index = 0
 		for(var i in $scope.jardin){
 			if(i == 'no_secciones' || i == 'fecha_de_creacion' || i == 'nombre'){
@@ -192,7 +192,7 @@ angular.module('gns.controllers')
 		$scope.save_garden(false)
 	}
 
-	$scope.np_reset = function(){
+	$scope.np_reset = () => {
 		$scope.nueva_planta_pre = ''
 		$scope.nueva_planta_especie = ''
 		$scope.nueva_planta_icono = ''
@@ -205,7 +205,7 @@ angular.module('gns.controllers')
 
 	$scope.specie_weather_message = ''
 
-	$scope.check_for_weather = function(weather){
+	$scope.check_for_weather = (weather) => {
 		switch(weather){
 			case 'desertico':
 				if($scope.jardin.temperatura < 18 && $scope.humidity > 30){
@@ -255,7 +255,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.nueva_planta_aceptar = function(){
+	$scope.nueva_planta_aceptar = () => {
 		if($scope.nueva_planta_especie == '' || $scope.nueva_planta_nombre == ''){
 			alert('Ni el nombre ni la especie pueden quedar vacías.')
 		}else{
@@ -293,12 +293,12 @@ angular.module('gns.controllers')
 		}	
 	}
 
-	$scope.np_cancelar = function(){
+	$scope.np_cancelar = () => {
 		$scope.np_reset()
 		$scope.nueva_planta_abierto = false
 	}
 
-	$scope.check_icon_selection = function(number){
+	$scope.check_icon_selection = (number) => {
 		if($scope.nueva_planta_icono == 'img/plant-icon' + number + '.svg'){
 			return true
 		}else{
@@ -306,15 +306,15 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.geticonurl = function(number){
+	$scope.geticonurl = (number) => {
 		return 'img/plant-icon' + number + '.svg'
 	}
 
-	$scope.select_icono = function(number){
+	$scope.select_icono = (number) => {
 		$scope.nueva_planta_icono = $scope.geticonurl(number)
 	}
 
-	$scope.busca_especie = function(especie){
+	$scope.busca_especie = (especie) => {
 		var str = especie[$scope.nueva_planta_especie_filtro]
 		if($scope.nueva_planta_pre == ''){
 			if(especie[$scope.nueva_planta_especie_filtro] == null){
@@ -326,7 +326,7 @@ angular.module('gns.controllers')
 		}else{ return false}
 	}
 
-	$scope.select_slot = function(id){
+	$scope.select_slot = (id) => {
 		$scope.planta_seleccionada = id
 		if($scope.jardin[$scope.seccion_actual][id] == null){
 			$scope.nueva_planta_abierto = true
@@ -336,7 +336,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.reset_garden_form = function(){
+	$scope.reset_garden_form = () => {
 		$scope.nueva_seccion_nombre = ''
 		$scope.nueva_seccion_tipo = 'Interior'
 		$scope.nueva_seccion_humedad = 'Neutral'
@@ -344,7 +344,7 @@ angular.module('gns.controllers')
 		$scope.nueva_seccion_intensidad_luz = 'Neutral'
 	}
 
-	$scope.nueva_seccion = function(k){
+	$scope.nueva_seccion = (k) => {
 		if($scope.nueva_seccion_nombre == ''){
 			alert('Necesitas especificar el nombre de la sección.')
 		}
@@ -368,12 +368,12 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.cancelar_seccion = function(){
+	$scope.cancelar_seccion = () => {
 		$scope.reset_garden_form()
 		$scope.nueva_seccion_abierto = false
 	}
 
-	$scope.eliminar_seccion = function(){
+	$scope.eliminar_seccion = () => {
 		var k = 0
 		if(confirm('¿En verdad desea eliminar la sección?')){
 			if($scope.jardin.no_secciones != 0){
@@ -393,7 +393,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.obtiene_especie = function(id){
+	$scope.obtiene_especie = (id) => {
 		for(var i = 0; i< $scope.database.Basic.no_especies; i++){
 			if($scope.lista_especies[i].especie == $scope.jardin[$scope.seccion_actual][id].especie){
 				$scope.especie_provisional = $scope.lista_especies[i]
@@ -402,7 +402,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.nueva_bitacora = function(v){
+	$scope.nueva_bitacora = (v) => {
 		var y = $scope.bitacora_fecha.getUTCFullYear() + ""
 		var m = ($scope.bitacora_fecha.getUTCMonth() + 1) + ""
 		var d = $scope.bitacora_fecha.getUTCDate() + ""
@@ -424,7 +424,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.nueva_bitacora_seccion = function(v){
+	$scope.nueva_bitacora_seccion = (v) => {
 		var y = $scope.bitacora_fecha.getUTCFullYear() + ""
 		var m = ($scope.bitacora_fecha.getUTCMonth() + 1) + ""
 		var d = $scope.bitacora_fecha.getUTCDate() + ""
@@ -446,7 +446,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.add_seccion_info = function(){
+	$scope.add_seccion_info = () => {
 		var y = $scope.bitacora_fecha.getUTCFullYear() + ""
 		var m = ($scope.bitacora_fecha.getUTCMonth() + 1) + ""
 		var d = $scope.bitacora_fecha.getUTCDate() + ""
@@ -462,7 +462,7 @@ angular.module('gns.controllers')
 
 	}
 
-	$scope.iniciar_sesion = function(){
+	$scope.iniciar_sesion = () => {
 		if($scope.sesion_nombre == '' || $scope.sesion_pass == ''){
 			alert('no puede quedar campo vacío.')
 		}else if($scope.database.usuarios[$scope.sesion_nombre] == null){
@@ -481,7 +481,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.cerrar_sesion = function(){
+	$scope.cerrar_sesion = () => {
 		if($scope.browser_support){
 			localStorage.removeItem("sesion_iniciada")
 			localStorage.removeItem("usuario")
@@ -491,8 +491,8 @@ angular.module('gns.controllers')
 			location.reload()
 		}
 	}
-
-	$scope.registrar_usuario = function(){
+ 
+	$scope.registrar_usuario = () => {
 		if($scope.nuevo_usuario_nombre == '' || $scope.nuevo_usuario_pass == ''|| $scope.nuevo_jardin_nombre == '' || $scope.nuevo_usuario_email == ''){
 			$scope.message = 'Ningun campo debe quedar vacío'
 		}else if($scope.usuario_pass_coincide == false){
@@ -524,11 +524,11 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.passInfo = function(){
+	$scope.passInfo = () => {
 		$scope.current_profile = db.usuarios[$scope.current_user]
 	}
 
-	db.$loaded().then(function(){
+	db.$loaded().then(() => {
 		if (typeof(Storage) !== "undefined") {
 			$scope.browser_support = true
 			console.log('first flag.')
@@ -547,7 +547,7 @@ angular.module('gns.controllers')
 			    location: $scope.current_profile.localizacion,
 			    woeid: '',
 			    unit: 'c',
-			    success: function(weather) {
+			    success: (weather) => {
 			    	db.usuarios[$scope.current_user].jardin.temperatura = weather.temp
 			    	db.usuarios[$scope.current_user].jardin.temp_url = weather.thumbnail
 			    	$scope.humidity = weather.humidity
@@ -574,7 +574,7 @@ angular.module('gns.controllers')
 			      db.$save()
 
 			    },
-			    error: function(error) {
+			    error: (error) => {
 			      console.log(error)
 			    }
 			  });

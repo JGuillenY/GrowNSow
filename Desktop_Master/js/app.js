@@ -1,6 +1,6 @@
 (function(){
 	var app = angular.module('gnsApp', ['firebase', 'gns.controllers', 'ui.router'])
-	app.controller('loadController', function($scope, $firebaseObject){
+	app.controller('loadController', function($scope, $firebaseObject) {
 		var storage = firebase.storage();
 		$scope.storageRef = storage.ref()
 
@@ -24,34 +24,34 @@
 		$scope.lista_especies = []
 		$scope.metadatos = {especie:[], genero:[], familia:[], orden:[], clase:[], division:[]}
 
-		$scope.save_database = function(){
+		$scope.save_database = () => {
 			$scope.database.$save()
 		}
 
-		$scope.black_screen = function(){
+		$scope.black_screen = () => {
 			if($scope.main_menu_open || $scope.nueva_planta_abierto || $scope.nueva_seccion_abierto || $scope.planta_abierto){
 				return true
 			}else{ return false}
 		}
 
-		$scope.black_screen_click = function(){
+		$scope.black_screen_click = () => {
 			$scope.main_menu_open = false
 			$scope.nueva_planta_abierto = false
 			$scope.nueva_seccion_abierto = false
 			$scope.planta_abierto = false
 		}
 
-		$scope.empty_alert_accept = function(){
+		$scope.empty_alert_accept = () => {
 			$scope.done = true
 			$scope.empty_alert = false
 		}
 
-		$scope.select_menu_option = function(opt){
+		$scope.select_menu_option = (opt) => {
 			$scope.main_menu = opt
 			$scope.main_menu_open = false
 		}
 
-		$scope.start_list = function(){
+		$scope.start_list = () => {
 			var ordered_list = []
 			var unordered_list = []
 			var k=0
@@ -73,7 +73,7 @@
 			$scope.lista_especies = ordered_list	
 		}
 
-		var fulfill = function(){
+		var fulfill = () => {
 			var result = []
 			for(var n=1; n < 26; n++){
 				result.push(n)
@@ -82,7 +82,7 @@
 			
 		}
 
-		$scope.database.$loaded().then(function(){
+		$scope.database.$loaded().then(() => {
 			var date = new Date()
 			var y = date.getUTCFullYear() + ""
 			var m = (date.getUTCMonth() + 1) + ""

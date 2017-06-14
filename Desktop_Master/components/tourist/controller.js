@@ -20,20 +20,20 @@ angular.module('gns.controllers')
 
 	$scope.seccion_actual = 0
 
-	$scope.left_section = function(){
+	$scope.left_section = () => {
 		if($scope.seccion_actual > 0){
 			$scope.seccion_actual--
 			//$scope.garden_bg_number = $scope.jardin[$scope.seccion_actual].bg_number
 		}
 	}
 
-	$scope.rigth_section = function(){
+	$scope.rigth_section = () => {
 		if($scope.seccion_actual < $scope.jardin.no_secciones - 1){
 			$scope.seccion_actual++
 		}
 	}
 
-	$scope.obtiene_especie = function(id){
+	$scope.obtiene_especie = (id) => {
 		console.log(id)
 		for(var i = 0; i< $scope.database.Basic.no_especies; i++){
 			if(db.Basic[i].especie == $scope.tour[$scope.seccion_actual][id].especie){
@@ -43,7 +43,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.select_slot = function(id){
+	$scope.select_slot = (id) => {
 		console.log(id)
 		$scope.planta_seleccionada = id
 		if($scope.jardin[$scope.seccion_actual][id] == null){
@@ -54,7 +54,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.ir = function(){
+	$scope.ir = () => {
 		$scope.results = []
 		$scope.results.length = 0
 		for(var perfil in db.usuarios){
@@ -64,7 +64,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.visit_garden = function(jardin){
+	$scope.visit_garden = (jardin) =>{
 		$scope.visit_loged = true
 		$scope.tour = jardin
 	}

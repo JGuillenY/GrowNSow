@@ -1,5 +1,5 @@
 angular.module('gns.controllers')
-.controller('herbarioController', function($scope, $firebaseObject){
+.controller('herbarioController', function($scope, $firebaseObject) {
 	$scope.edit_genero = ''
 	$scope.edit_familia = ''
 	$scope.edit_orden = ''
@@ -52,12 +52,12 @@ angular.module('gns.controllers')
 	$scope.upload_done = true
 	$scope.fs_open = false
 
-	$scope.toFull = function(url){
+	$scope.toFull = (url) => {
 		$scope.img_selected = url
 		$scope.fs_open = true
 	}
 	
-	$scope.upload_image = function(){
+	$scope.upload_image = () => {
 		var file = document.getElementById("es_img")
 		
 		if($scope.image_url != ''){
@@ -85,7 +85,7 @@ angular.module('gns.controllers')
 				$scope.upload_done = false
 				// Listen for state changes, errors, and completion of the upload.
 				uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-				  function(snapshot) {
+				  (snapshot) => {
 				    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 				    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				    console.log('Upload is ' + progress + '% done');
@@ -97,11 +97,11 @@ angular.module('gns.controllers')
 				        console.log('Upload is running');
 				        break;
 				    }
-				  }, function(error) {
+				  }, (error) => {
 
 				  // A full list of error codes is available at
 				  // https://firebase.google.com/docs/storage/web/handle-errors
-				  switch (error.code) {
+				  switch (error.code){
 				    case 'storage/unauthorized':
 				    	console.log('error de autorizaci&iocute;n.')
 				      // User doesn't have permission to access the object
@@ -115,7 +115,7 @@ angular.module('gns.controllers')
 				      // Unknown error occurred, inspect error.serverResponse
 				      break;
 				  }
-				}, function() {
+				}, () => {
 				  // Upload completed successfully, now we can get the download URL
 				  var downloadURL = uploadTask.snapshot.downloadURL;
 				  $scope.upload_done = true
@@ -139,7 +139,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.open_sidebar = function(){
+	$scope.open_sidebar = () => {
 		if($scope.side_menu_open){
 			$scope.side_menu_open = false
 		}else{
@@ -147,7 +147,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.cancel_image = function(){
+	$scope.cancel_image = () => {
 		$scope.open_image_option = false
 		$scope.show_pic = false
 		$scope.waiting_image = false
@@ -155,12 +155,12 @@ angular.module('gns.controllers')
 		$scope.image_on = false
 	}
 
-	$scope.openFile = function() {
+	$scope.openFile = () =>  {
     $scope.input = document.getElementById('es_img')
     $scope.show_pic = true
 	}
 
-	$scope.left_image = function(){
+	$scope.left_image = () => {
 		if($scope.current_image > 1){
 			$scope.image_position = 'left'
 			$scope.current_image--
@@ -169,7 +169,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.right_image = function(){
+	$scope.right_image = () => {
 		if($scope.$scope.storageRef.Basic[$scope.especie_seleccionada][$scope.current_image + 1] != null){
 			$scope.image_position = 'right'
 			$scope.current_image++
@@ -178,7 +178,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.select_image = function(){
+	$scope.select_image = () => {
 		if($scope.image_file.files[0] == null){
 			alert('Debe seleccionar una imagen primero')
 		}else{
@@ -187,7 +187,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.add_img = function(){
+	$scope.add_img = () => {
 		if($scope.waiting_image){
 			alert('Necesitas seleccionar una imagen primero')
 		}else{
@@ -201,7 +201,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.add_metadatos = function(){
+	$scope.add_metadatos = () => {
 		if(db.metadatos == null){
 			db.metadatos = {genero:{}, familia:{}, orden:{}, clase:{}, division:{}}
 			db.metadatos.genero[$scope.genero] = $scope.genero
@@ -228,7 +228,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.delete = function(){
+	$scope.delete = () => {
 		var k = 0
 		var deleted = ''
 		if(confirm('Realmente desea eliminar ' + $scope.especie_seleccionada)){
@@ -249,7 +249,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.edit_e = function(){
+	$scope.edit_e = () => {
 		var k = 0
 		if($scope.edit_genero == '' || $scope.edit_familia == '' || $scope.edit_orden == '' || $scope.edit_clase == '' || $scope.edit_nombre_comun == ''){
 			//$scope.alert_empty_field=true
@@ -274,7 +274,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.select_from_list = function(especie){
+	$scope.select_from_list = (especie) => {
 		$scope.especie_seleccionada = especie.id
 		
 		$scope.edit_genero = db.Basic[$scope.especie_seleccionada].genero
@@ -297,7 +297,7 @@ angular.module('gns.controllers')
 	}
 
 
-	$scope.check_order = function(especie){
+	$scope.check_order = (especie) => {
 		var str = especie[$scope.search_type]
 		if($scope.search_item == ''){
 			return true
@@ -306,7 +306,7 @@ angular.module('gns.controllers')
 		}else{ return false}
 	}
 
-	$scope.findKey = function(){
+	$scope.findKey = () => {
 		var currentKey = 0
 		for(var i = 0; i<$scope.lista_especies.length; i++){
 			if($scope.lista_especies[i].id == $scope.especie_seleccionada){
@@ -316,14 +316,14 @@ angular.module('gns.controllers')
 		return currentKey
 	}
 
-	$scope.left_specie = function(){
+	$scope.left_specie = () => {
 		var i = $scope.findKey()
 		if($scope.findKey() > 0){
 			$scope.select_from_list($scope.lista_especies[i-1])
 		}
 	}
 
-	$scope.right_specie = function(){
+	$scope.right_specie = () => {
 		console.log('done')
 		var i = $scope.findKey()
 		if($scope.findKey() < $scope.lista_especies.length){
@@ -331,7 +331,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.keyPressed = function(event){
+	$scope.keyPressed = (event) => {
 		console.log('key')
 		if(event.keyCode == 37){
 			$scope.left_specie()
@@ -340,7 +340,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	db.$loaded().then(function(){
+	db.$loaded().then(() => {
 		var i = 0
 		for(var o in db.Basic){
 			if(i == 0){
@@ -350,7 +350,7 @@ angular.module('gns.controllers')
 		}
 		$scope.select_from_list(first_especie)
 	})
-	// db.$loaded().then(function(){
+	// db.$loaded().then((){
 
 	// })
 })

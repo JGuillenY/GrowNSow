@@ -1,5 +1,5 @@
 angular.module('gns.controllers')
-.controller('agregarController', function($scope, $firebaseObject){
+.controller('agregarController', ($scope, $firebaseObject) => {
 	$scope.especie = ''
 	$scope.genero = ''
 	$scope.familia = ''
@@ -19,7 +19,7 @@ angular.module('gns.controllers')
 	$scope.active_property = 'medicinales'
 	$scope.nombre_comun = ''
 
-	var check_p = function(){
+	var check_p = () => {
 		switch($scope.active_property){
 				case 'medicinales':
 					return $scope.no_medicinales
@@ -30,7 +30,7 @@ angular.module('gns.controllers')
 			}
 	}
 
-	$scope.agregar_propiedad = function(){
+	$scope.agregar_propiedad = () => {
 		if($scope.properties[$scope.active_property][check_p()] != null || check_p() == 1){
 			switch($scope.active_property){
 					case 'medicinales':
@@ -46,7 +46,7 @@ angular.module('gns.controllers')
 			}
 	}
 
-	$scope.rango = function(){
+	$scope.rango = () => {
 		var range = [];
 		var total = 0
 		switch($scope.active_property){
@@ -73,18 +73,18 @@ angular.module('gns.controllers')
 	
 	var choice = true
 
-	$scope.load_url = function(){
+	$scope.load_url = () => {
 		if($scope.url == ''){
 			// $scope.alert_empty_field=true
 			alert("no puede dejar campo vacio.")
 		}else{
-			$.get($scope.url, function(response){
+			$.get($scope.url, (response) => {
 				console.log($(response).find("a[title='Reino (biología)']").text())
 			})
 		}
 	}
 
-	$scope.new_especie = function(){
+	$scope.new_especie = () => {
 		$scope.database.Basic[$scope.id] = {especie: $scope.especie, 
 																				genero: $scope.genero, 
 																				familia: $scope.familia,	
@@ -107,7 +107,7 @@ angular.module('gns.controllers')
 		//$scope.alert_exito=true
 	}
 
-	// $scope.confirm_aceptar = function(){
+	// $scope.confirm_aceptar = (){
 	// 	$scope.sobreescribir = true
 	// 	$scope.confirm_sobre = false
 	// 	$scope.alert_sobre = true
@@ -115,13 +115,13 @@ angular.module('gns.controllers')
 	// 	$scope.new_especie()
 	// }
 
-	// $scope.confirm_cancelar = function(){
+	// $scope.confirm_cancelar = (){
 	// 	$scope.sobreescribir = false
 	// 	$scope.confirm_sobre = false
 	// 	choice = false;
 	// }
 
-	$scope.add_metadatos = function(){
+	$scope.add_metadatos = () => {
 		if($scope.database.metadatos == null){
 			$scope.database.metadatos = {genero:{}, familia:{}, orden:{}, clase:{}, division:{}}
 			$scope.database.metadatos.genero[$scope.genero] = $scope.genero
@@ -148,7 +148,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.reset_form = function(){
+	$scope.reset_form = () => {
 		$scope.especie = ''
 		$scope.genero = ''
 		$scope.familia = ''
@@ -169,7 +169,7 @@ angular.module('gns.controllers')
 		$scope.nombre_comun = ''
 	}
 
-	$scope.submit = function(){
+	$scope.submit = () => {
 		if($scope.especie == '' || $scope.genero == '' || $scope.familia == '' || $scope.orden == '' || $scope.clase == '' || $scope.nombre_comun == ''){
 			// $scope.alert_empty_field = true
 			alert('No puede dejar campo vacio.')

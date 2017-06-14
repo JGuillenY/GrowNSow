@@ -1,5 +1,5 @@
 angular.module('gns.controllers')
-.controller('configuraciondeperfilController', function($scope, $firebaseObject){
+.controller('configuraciondeperfilController', function($scope, $firebaseObject) {
 	var rootRef = firebase.database().ref();
 	var db = $firebaseObject(rootRef)
 	var storage = firebase.storage()
@@ -15,7 +15,7 @@ angular.module('gns.controllers')
 
 	$scope.profile_menu_selection = 'general'
 
-	$scope.uploadPics = function(id){
+	$scope.uploadPics = (id) => {
 		var file = document.getElementById(id)
 		if(file.files[0].name == undefined){
 			alert('Debe seleccionar una imagen.')
@@ -28,7 +28,7 @@ angular.module('gns.controllers')
 			$scope.upload_done = false
 			// Listen for state changes, errors, and completion of the upload.
 			uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-			  function(snapshot) {
+			  (snapshot) => {
 			    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 			    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 			    console.log('Upload is ' + progress + '% done');
@@ -40,7 +40,7 @@ angular.module('gns.controllers')
 			        console.log('Upload is running');
 			        break;
 			    }
-			  }, function(error) {
+			  }, (error) => {
 
 			  // A full list of error codes is available at
 			  // https://firebase.google.com/docs/storage/web/handle-errors
@@ -58,7 +58,7 @@ angular.module('gns.controllers')
 			      // Unknown error occurred, inspect error.serverResponse
 			      break;
 			  }
-			}, function() {
+			}, () => {
 			  // Upload completed successfully, now we can get the download URL
 			  var downloadURL = uploadTask.snapshot.downloadURL;
 			  file.files[0] = null
@@ -79,17 +79,17 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.changeBackgroundPicture = function(){
+	$scope.changeBackgroundPicture = () => {
 			var letsclick = document.getElementById('profile_input')
 			letsclick.click()
 		}
 
-	$scope.changeProfilePicture = function(){
+	$scope.changeProfilePicture = () => {
 		var letsclick = document.getElementById('background_input')
 		letsclick.click()
 	}
 
-	db.$loaded().then(function(){
+	db.$loaded().then(() => {
 		if (typeof(Storage) !== "undefined") {
 			$scope.browser_support = true
 			console.log('first flag.')

@@ -1,5 +1,5 @@
 angular.module('gns.controllers')
-.controller('calendarController', function($scope, $firebaseObject){
+.controller('calendarController', function($scope, $firebaseObject) {
 	var rootRef = firebase.database().ref();
 	var db = $firebaseObject(rootRef)
 	var storage = firebase.storage()
@@ -21,7 +21,7 @@ angular.module('gns.controllers')
 	var d = $scope.bitacora_fecha.getUTCDate() + ""
 	var f = d + "/" + m + "/" + y*/
 
-	$scope.getMoon = function(id){
+	$scope.getMoon = (id) => {
 		console.log(id)
 		var moon = {}
 		switch(id){
@@ -61,10 +61,9 @@ angular.module('gns.controllers')
 		moon.url = 'img/moon' + id + '.svg'
 		moon.id = id
 		return moon
-		console.log($scope.moon.name)
 	}
 
-	$scope.getMonth = function(mon){
+	$scope.getMonth = (mon) => {
 		switch(mon + 1){
 			case 1:
 				$scope.month = 'Enero'
@@ -105,9 +104,9 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.generateMonth = function(){
+	$scope.generateMonth = () => {
 		$scope.currentMonth = {}
-		var getDaysInMonth = function(month,year) {
+		var getDaysInMonth = (month,year) => {
 		  // Here January is 1 based
 		  //Day 0 is the last day in the previous month
 		 return new Date(year, month, 0).getDate();
@@ -189,7 +188,7 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.less_month = function(){
+	$scope.less_month = () => {
 		if($scope.month_number == 0){
 			$scope.month_number = 11
 		}else{
@@ -199,7 +198,7 @@ angular.module('gns.controllers')
 		$scope.generateMonth()
 	}
 
-	$scope.more_month = function(){
+	$scope.more_month = () => {
 		if($scope.month_number == 11){
 			$scope.month_number = 0
 		}else{
@@ -209,7 +208,7 @@ angular.module('gns.controllers')
 		$scope.generateMonth()
 	}
 
-	$scope.istoday = function(id){
+	$scope.istoday = (id) => {
 		var one = new Date($scope.fecha_today.y, $scope.month_number, id)
 		var two = new Date($scope.fecha_today.y, $scope.month_number, $scope.fecha_today.d)
 		if(one == two){
@@ -219,14 +218,14 @@ angular.module('gns.controllers')
 		}
 	}
 
-	$scope.select_dia = function(day){
+	$scope.select_dia = (day) => {
 		$scope.calendar_fecha = day.fecha
 		$scope.moon = {}
 		$scope.moon = day.moon
 		$scope.calendar_section = 'single'
 	}
 
-	db.$loaded().then(function(){
+	db.$loaded().then(() => {
 		var moon_ph = getMoonPhase($scope.fecha_today.y, $scope.fecha_today.m, $scope.fecha_today.d)
 		$scope.calendar_fecha = $scope.fecha_today.d + "/" + $scope.fecha_today.m + "/" + $scope.fecha_today.y
 		console.log(moon_ph)
